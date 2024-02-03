@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mali&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* {
+    font-family: 'Poor Story', system-ui;
+}
+
+body {
+    transition: background-color 500ms ease-in-out;
+}
+
+body#darkMode{
+    background-color: rgb(17, 17, 17);
+}
+
+body#lightMode{
+    background-color: white;
+}
