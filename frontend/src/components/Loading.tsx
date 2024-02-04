@@ -1,5 +1,4 @@
-import { ReactElement, useContext, FC } from "react";
-// import { DataContext } from "./Quiz";
+import { ReactElement, FC } from "react";
 import { LoadingBlockProps } from "../model/model";
 import { Blocks } from "react-loader-spinner";
 
