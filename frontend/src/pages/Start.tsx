@@ -1,8 +1,7 @@
 import { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { MySwal } from "../components/Quiz";
-import reactLogo from "../assets/react.svg";
-
+import reactLogo from "../../public/assets/react.svg";
 import Button from "../components/Button";
 import Container from "../components/Container";
 // import ToggleTheme from "../components/ToggleTheme";
@@ -45,7 +44,7 @@ const Start = (): ReactElement => {
         <Link to={"/quiz"}>
           <div className="mt-8">
             <Button
-              text={"คลิกเพื่อเริ่มทำแบบทดสอบ"}
+              text={"คลิกเพื่อเริ่มทำแบบทดสอบ JavScript"}
               style={
                 "text-salte-50 bg-gradient-to-r from-slate-950 to-slate-900 text-slate-50 text-center w-26 h-12 p-3 rounded-lg ease-linear duration-300 hover:from-teal-500 hover:to-teal-200 hover:text-black shadow-xl hover:ring-offset-[5px] hover:ring-2 ring-offset-slate-300 hover:ring-teal-100 font-bold text-md font-mali"
               }

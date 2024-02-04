@@ -14,20 +14,20 @@ const Question = (): ReactElement => {
 
   return (
     <div className="font-mali">
-      <div className="text-2xl font-bold pointer-events-none">
+      <div className="text-lg font-bold pointer-events-none">
         <span>{data?.number}.) </span>
-        <span className="ms-3">{data?.question}</span>
+        <span className="ms-3 font-mali">{data?.question}</span>
       </div>
       <div className="mt-2 w-full">
         <p
-          className="text-sm text-gray-500 font-mali cursor-pointer"
+          className="text-xs text-gray-500 font-mali cursor-pointer"
           onClick={(): void => {
             setOpen(!open);
           }}
         >
           {!open ? "ดูคำใบ้" : "ปิดคำใบ้"}
         </p>
-        {open && <p className="font-mali text-lg text-yellow-500 bg-gradient-to-l from-stone-800 to-stone-950 mt-1 p-2">{data?.hint || `ข้อ ${data?.number} นี้ไม่มีคำใบ้` }</p>}
+        {open && <p className="font-mali text-sm text-yellow-500 bg-gradient-to-l from-stone-800 to-stone-950 mt-1 p-2">{data?.hint || `ข้อ ${data?.number} นี้ไม่มีคำใบ้` }</p>}
       </div>
     </div>
   );

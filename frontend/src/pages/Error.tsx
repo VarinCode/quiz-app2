@@ -1,6 +1,6 @@
 import { ReactElement, useEffect } from 'react'
 import Container from "../components/Container";
-import cancel from "../assets/svgs/undraw_cancel_re_pkdm.svg"
+import cancel from "../../public/assets/svgs/undraw_cancel_re_pkdm.svg"
 import { MySwal } from '../components/Quiz';
 
 const Error = ():ReactElement => {

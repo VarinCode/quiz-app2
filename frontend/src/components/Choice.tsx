@@ -56,7 +56,7 @@ const Choice: FC<ChoiceProps> = ({ id, value }): ReactElement => {
           onChange={handleChange}
           id={id}
         />
-        <label className="text-xl text-start font-medium" htmlFor={id}>
+        <label className="text-lg text-start font-medium font-mali" htmlFor={id}>
           {value}
         </label>
       </span>
