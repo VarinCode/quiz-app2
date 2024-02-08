@@ -18,7 +18,6 @@ import Choice from "./Choice";
 import Question from "./Question";
 import List from "./List";
 import Loading from "./Loading";
-// import ToggleTheme from "./ToggleTheme";
 import Button from "./Button";
 import ShowScore from "../pages/ShowScore";
 
@@ -58,11 +57,13 @@ const Quiz = (): ReactElement => {
         throw new Error("เกิดข้อผิดพลาดขึ้นไม่สามารถเรียกข้อมูลได้!");
       }
     } catch (e: any) {
-      MySwal.fire({
-        title: <h1 className="font-mali">เกิดข้อผิดพลาดขึ้น</h1>,
-        html: <p>{e.message}</p>,
-        icon: "error",
-      });
+      if(e instanceof Error){
+        MySwal.fire({
+          title: <h1 className="font-mali">เกิดข้อผิดพลาดขึ้น</h1>,
+          html: <p>{e.message}</p>,
+          icon: "error",
+        });        
+      }
       return { result: e.message, status: false };
     }
   };
@@ -75,7 +76,6 @@ const Quiz = (): ReactElement => {
         const model: Model = JSON.parse(result);
         setData(model);
         setProblems(model.dataset);
-        // setLoading(false);
         setTimeout((): void => setLoading(false), 1500);
       } else {
         navigate("/error");
@@ -131,7 +131,6 @@ const Quiz = (): ReactElement => {
         <ShowScore />
       ) : (
         <>
-          {/* <ToggleTheme /> */}
           <main className="absolute top-12 right-2/4 translate-x-2/4 flex flex-col items-center justify-stretch w-[380px] h-max p-8 bg-slate-200 shadow-2xl rounded-2xl">
             <header className="text-4xl text-center my-4 font-bold cursor-default">
               Quiz App

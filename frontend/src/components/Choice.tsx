@@ -35,7 +35,6 @@ const Choice: FC<ChoiceProps> = ({ id, value }): ReactElement => {
       prevAnss[index] = newAnswer;
       return prevAnss;
     });
-    // console.log(context.answers);
   };
 
   return (
