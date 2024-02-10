@@ -13,6 +13,8 @@ import Model, {
   defaultVal,
   Problems,
   Answers,
+  Time,
+  defaultTime,
 } from "../model/model";
 import Choice from "./Choice";
 import Question from "./Question";
@@ -20,6 +22,7 @@ import List from "./List";
 import Loading from "./Loading";
 import Button from "./Button";
 import ShowScore from "../pages/ShowScore";
+import Timer from "./Timer";
 
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { GrNext } from "react-icons/gr";
@@ -36,12 +39,12 @@ const Quiz = (): ReactElement => {
   const [index, setIndex] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [completed, setCompleted] = useState<boolean>(false);
+  const [time, setTime] = useState<Time>(defaultTime);
 
   const navigate: NavigateFunction = useNavigate();
   const controller: AbortController = new AbortController();
 
-  const { VITE_BACKEND_PORT, VITE_API_URL, VITE_API_ENDPOINT }: ImportMetaEnv =
-    import.meta.env;
+  const { VITE_BACKEND_PORT, VITE_API_URL, VITE_API_ENDPOINT }: ImportMetaEnv = import.meta.env;
   const apiUrl: string = `${VITE_API_URL}${VITE_BACKEND_PORT}${VITE_API_ENDPOINT}`;
 
   const fetchData = async (): Promise<APIResponse<string>> => {
@@ -57,14 +60,16 @@ const Quiz = (): ReactElement => {
         throw new Error("เกิดข้อผิดพลาดขึ้นไม่สามารถเรียกข้อมูลได้!");
       }
     } catch (e: any) {
-      if(e instanceof Error){
+      if (e instanceof Error) {
         MySwal.fire({
           title: <h1 className="font-mali">เกิดข้อผิดพลาดขึ้น</h1>,
           html: <p>{e.message}</p>,
           icon: "error",
-        });        
+        });
+      } else {
+        console.error(e)
       }
-      return { result: e.message, status: false };
+      return { result: e, status: false };
     }
   };
 
@@ -105,20 +110,22 @@ const Quiz = (): ReactElement => {
     }
   };
 
-  return (
-    <DataContext.Provider
-      value={{
-        data,
-        answers,
-        setAnswers,
-        index,
-        completed,
-        setCompleted,
-        loading,
-        setLoading,
-      }}
-    >
-      {loading ? (
+  const values: DefaultValue = {
+    data,
+    answers,
+    setAnswers,
+    index,
+    completed,
+    setCompleted,
+    loading,
+    setLoading,
+    time,
+    setTime
+  };
+
+  if (loading) {
+    return (
+      <DataContext.Provider value={values}>
         <Loading
           text={
             completed
@@ -127,73 +134,85 @@ const Quiz = (): ReactElement => {
           }
           loading={loading}
         />
-      ) : completed ? (
+      </DataContext.Provider>
+    );
+  } else if (completed) {
+    return (
+      <DataContext.Provider value={values}>
         <ShowScore />
-      ) : (
-        <>
-          <main className="absolute top-12 right-2/4 translate-x-2/4 flex flex-col items-center justify-stretch w-[380px] h-max p-8 bg-slate-200 shadow-2xl rounded-2xl">
-            <header className="text-4xl text-center my-4 font-bold cursor-default">
-              Quiz App
-            </header>
-            <div className=" self-start mt-5 w-full">
-              <Question />
-              <List>
-                <Choice id={"a"} value={problems[index]?.choices?.a} />
-                <Choice id={"b"} value={problems[index]?.choices?.b} />
-                <Choice id={"c"} value={problems[index]?.choices?.c} />
-                <Choice id={"d"} value={problems[index]?.choices?.d} />
-              </List>
-            </div>
-            {index === problems.length - 1 ? (
-              <Button
-                text={"ส่งแบบทดสอบ"}
-                style={
-                  "h-12 w-52 text-center bg-gradient-to-r from-slate-950 to-slate-800 hover:from-teal-500 hover:to-teal-300 hover:text-black text-slate-50 p-3 rounded-lg duration-300 ease-in active:translate-x-4"
+      </DataContext.Provider>
+    );
+  } else {
+    return (
+      <DataContext.Provider value={values}>
+        <main className="absolute top-12 right-2/4 translate-x-2/4 flex flex-col items-center justify-stretch w-[380px] h-max p-8 bg-slate-200 shadow-2xl rounded-2xl">
+          <Timer
+            style={
+              "absolute top-5 right-6 flex items-center justify-center w-max h-max text-sm text-gray-800"
+            }
+          />
+          <header className="text-4xl text-center my-4 font-bold cursor-default">
+            Quiz App
+          </header>
+          <div className=" self-start mt-5 w-full">
+            <Question />
+            <List>
+              <Choice id={"a"} value={problems[index]?.choices?.a} />
+              <Choice id={"b"} value={problems[index]?.choices?.b} />
+              <Choice id={"c"} value={problems[index]?.choices?.c} />
+              <Choice id={"d"} value={problems[index]?.choices?.d} />
+            </List>
+          </div>
+          {index === problems.length - 1 ? (
+            <Button
+              text={"ส่งแบบทดสอบ"}
+              style={
+                "h-12 w-52 text-center bg-gradient-to-r from-slate-950 to-slate-800 hover:from-teal-500 hover:to-teal-300 hover:text-black text-slate-50 p-3 rounded-lg duration-300 ease-in active:translate-x-4"
+              }
+              callback={(): void => {
+                if (!answers[index]) {
+                  MySwal.fire({
+                    title: (
+                      <h1 className="font-mali font-bold">
+                        เกิดข้อผิดพลาดขึ้น
+                      </h1>
+                    ),
+                    html: (
+                      <h5 className="font-mali">
+                        ไม่สามารถกดปุ่มถัดไปได้เนื่่องจากคุณยังไม่ได้ตอบคำตอบในข้อนี้
+                      </h5>
+                    ),
+                    icon: "warning",
+                    showConfirmButton: false,
+                    timer: 1800,
+                  });
+                } else {
+                  setCompleted(true);
+                
+                  setLoading(true);
+                  setTimeout((): void => setLoading(false), 1500);
                 }
-                callback={(): void => {
-                  if (!answers[index]) {
-                    MySwal.fire({
-                      title: (
-                        <h1 className="font-mali font-bold">
-                          เกิดข้อผิดพลาดขึ้น
-                        </h1>
-                      ),
-                      html: (
-                        <h5 className="font-mali">
-                          ไม่สามารถกดปุ่มถัดไปได้เนื่่องจากคุณยังไม่ได้ตอบคำตอบในข้อนี้
-                        </h5>
-                      ),
-                      icon: "warning",
-                      showConfirmButton: false,
-                      timer: 1800,
-                    });
-                  } else {
-                    setCompleted(true);
-                    setLoading(true);
-                    setTimeout((): void => setLoading(false), 1500);
-                  }
-                }}
+              }}
+            />
+          ) : (
+            <div
+              className="self-end w-full flex items-center justify-end"
+              onClick={handleNext}
+            >
+              <Button
+                text={"ถัดไป"}
+                icon={<GrNext className="text-2xl" />}
+                style={
+                  "h-12 w-36 bg-gradient-to-r from-slate-950 to-slate-800 hover:from-teal-500 hover:to-teal-300 hover:text-black text-slate-50 p-3 rounded-lg flex items-center justify-center duration-300 ease-in"
+                }
+                callback={handleNext}
               />
-            ) : (
-              <div
-                className="self-end w-full flex items-center justify-end"
-                onClick={handleNext}
-              >
-                <Button
-                  text={"ถัดไป"}
-                  icon={<GrNext className="text-2xl" />}
-                  style={
-                    "h-12 w-36 bg-gradient-to-r from-slate-950 to-slate-800 hover:from-teal-500 hover:to-teal-300 hover:text-black text-slate-50 p-3 rounded-lg flex items-center justify-center duration-300 ease-in"
-                  }
-                  callback={handleNext}
-                />
-              </div>
-            )}
-          </main>
-        </>
-      )}
-    </DataContext.Provider>
-  );
+            </div>
+          )}
+        </main>
+      </DataContext.Provider>
+    );
+  }
 };
 
 export default Quiz;

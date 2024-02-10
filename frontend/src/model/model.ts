@@ -45,6 +45,16 @@ export const initialModel: Model = {
   dataset: []
 };
 
+export interface Time {
+  hours: number;
+  minutes: number;
+  seconds: number;
+  text: string
+}
+
+
+export const defaultTime: Time = { hours: 0, minutes: 0,seconds: 0, text: "" }
+
 export interface DefaultValue {
   data: Model;
   answers: Answers;
@@ -54,6 +64,8 @@ export interface DefaultValue {
   setCompleted: Function;
   loading: boolean;
   setLoading: Function;
+  time: Time;
+  setTime: Function;
 }
 
 export const defaultVal: DefaultValue = {
@@ -64,7 +76,9 @@ export const defaultVal: DefaultValue = {
   completed: false,
   setCompleted: function(){},
   loading: false,
-  setLoading: function(){}
+  setLoading: function(){},
+  time: defaultTime,
+  setTime: function(){}
 };
 
 export const LoadingBlockProps: BlocksProps = {

@@ -1,0 +1,50 @@
+[
+  {
+    "quiz1": {
+      "date": "Sat, 10 Feb 2024 15:31:49 GMT",
+      "time": {
+        "hours": 0,
+        "minutes": 0,
+        "seconds": 4,
+        "text": "4 วินาที"
+      },
+      "answers": [
+        {
+          "number": 1,
+          "answerIs": "Hello",
+          "selectChoiceIs": "c",
+          "date": "Sat, 10 Feb 2024 15:31:44 GMT"
+        },
+        {
+          "number": 2,
+          "answerIs": "a + b = 32",
+          "selectChoiceIs": "d",
+          "date": "Sat, 10 Feb 2024 15:31:45 GMT"
+        },
+        {
+          "number": 3,
+          "answerIs": "ไม่ได้เพราะเป็นข้อความ",
+          "selectChoiceIs": "c",
+          "date": "Sat, 10 Feb 2024 15:31:46 GMT"
+        },
+        {
+          "number": 4,
+          "answerIs": "undefined",
+          "selectChoiceIs": "d",
+          "date": "Sat, 10 Feb 2024 15:31:47 GMT"
+        },
+        {
+          "number": 5,
+          "answerIs": "2",
+          "selectChoiceIs": "d",
+          "date": "Sat, 10 Feb 2024 15:31:47 GMT"
+        }
+      ],
+      "result": {
+        "score": 1,
+        "average": 0.2,
+        "level": "อ่อน"
+      }
+    }
+  }
+]

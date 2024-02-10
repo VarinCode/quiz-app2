@@ -15,30 +15,21 @@ const ShowScore = (): ReactElement => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const context: Context = useContext<Context>(DataContext);
-  const { answers }: Context = context;
+  const { answers, time }: Context = context;
   const navigate: NavigateFunction = useNavigate();
 
-  const {
-    VITE_BACKEND_PORT,
-    VITE_API_URL,
-    VITE_API_ENTPOINT_SCORE,
-  }: ImportMetaEnv = import.meta.env;
+  const { VITE_BACKEND_PORT, VITE_API_URL, VITE_API_ENTPOINT_SCORE }: ImportMetaEnv = import.meta.env;
   const apiUrl: string = `${VITE_API_URL}${VITE_BACKEND_PORT}${VITE_API_ENTPOINT_SCORE}`;
   const controller: AbortController = new AbortController();
 
   const fetchScore = async (): Promise<APIResponse<Result>> => {
     try {
-      const response: AxiosResponse<APIResponse<Result>> = await axios.post(
-        apiUrl,
-        {
-          answers,
-        }
-      );
+      const response: AxiosResponse<APIResponse<Result>> = await axios.post(apiUrl, { answers, time });
       const { data, status }: AxiosResponse<APIResponse<Result>> = response;
       if (HttpStatusCode.Ok === status) {
         return { ...data, status: true };
       } else {
-        throw new Error("เกิดข้อผิดพลาดขึ้นไม่สามาถคำนวณหาคะแนนให้คุณได้");
+        throw new Error("เกิดข้อผิดพลาดขึ้นไม่สามาถคำนวณคะแนนให้คุณได้");
       }
     } catch (err: any) {
       console.error(err);
@@ -68,7 +59,10 @@ const ShowScore = (): ReactElement => {
   return (
     <Container>
       {loading ? (
-        <Loading text={"กำลังเริ่มทำแบบทดสอบใหม่อีกครั้งกรุณารอสักครู่ ..."} loading={loading} />
+        <Loading
+          text={"กำลังเริ่มทำแบบทดสอบใหม่อีกครั้งกรุณารอสักครู่ ..."}
+          loading={loading}
+        />
       ) : (
         <div className="absolute top-12 right-2/4 translate-x-2/4 flex flex-col items-center justify-center h-max w-max text-start font-bold tracking-wide p-4">
           <img
@@ -78,6 +72,12 @@ const ShowScore = (): ReactElement => {
             loading="lazy"
           />
           <div className="mt-6 cursor-default">
+            <h1 className="font-mali text-xl">
+              คุณใช้เวลาไปทั้งหมด :{" "}
+              <span className="text-2xl mx-1 text-cyan-400 font-mali">
+                {time.text}
+              </span>
+            </h1>
             <h1 className="font-mali text-xl">
               คะแนนของคุณ :{" "}
               <span className="text-4xl mx-1 text-sky-500">{score}</span> คะแนน
