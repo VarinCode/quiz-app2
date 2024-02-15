@@ -8,5 +8,6 @@ router.get("/api/data", (req, res) => controller.getData(req, res, model));
 router.post("/api/score", (req, res, next) =>
   controller.getScore(req, res, next, model)
 );
+router.post("/api/quiz" , (req, res) => controller.getQuizData(req,res))
 
 export default router;

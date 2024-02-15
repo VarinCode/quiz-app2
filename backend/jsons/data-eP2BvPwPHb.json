@@ -1,0 +1,69 @@
+{
+  "quiz": {
+    "date": "Thu, 15 Feb 2024 12:38:53 GMT",
+    "id": "eP2BvPwPHb",
+    "time": {
+      "hours": 0,
+      "minutes": 0,
+      "seconds": 43,
+      "text": "43 วินาที"
+    },
+    "answers": [
+      {
+        "number": 1,
+        "answerIs": "Hello World!",
+        "selectChoiceIs": "a",
+        "question": "console.log(\"Hello World!\") // คำสั่งนี้จะแสดงผลอะไร",
+        "correctChoice": "a",
+        "correctAnswer": "Hello World!",
+        "date": "Thu, 15 Feb 2024 12:38:09 GMT",
+        "isCorrect": true
+      },
+      {
+        "number": 2,
+        "answerIs": "a + b = 5",
+        "selectChoiceIs": "b",
+        "question": "let a = 3; let b = 2; console.log(\"a + b = \" + a + b);",
+        "correctChoice": "b",
+        "correctAnswer": "a + b = 5",
+        "date": "Thu, 15 Feb 2024 12:38:11 GMT",
+        "isCorrect": true
+      },
+      {
+        "number": 3,
+        "answerIs": "ไม่ได้เพราะเป็นค่าคงที่",
+        "selectChoiceIs": "d",
+        "question": "const myString = \"ข้อความ\"; // เราสามารถเปลี่ยนค่าใน myString ได้หรือไม่เพราะเหตุได",
+        "correctChoice": "d",
+        "correctAnswer": "ไม่ได้เพราะเป็นค่าคงที่",
+        "date": "Thu, 15 Feb 2024 12:38:17 GMT",
+        "isCorrect": true
+      },
+      {
+        "number": 4,
+        "answerIs": "NaN",
+        "selectChoiceIs": "c",
+        "question": "(12 - \"abcd\") / 3 // จะมีค่าออกมาเป็นค่าอะไร",
+        "correctChoice": "c",
+        "correctAnswer": "NaN",
+        "date": "Thu, 15 Feb 2024 12:38:19 GMT",
+        "isCorrect": true
+      },
+      {
+        "number": 5,
+        "answerIs": "2",
+        "selectChoiceIs": "d",
+        "question": "((true + true - false) * (true + true)) / 2 // มีค่าเป็นอะไร",
+        "correctChoice": "d",
+        "correctAnswer": "2",
+        "date": "Thu, 15 Feb 2024 12:38:22 GMT",
+        "isCorrect": true
+      }
+    ],
+    "result": {
+      "score": 5,
+      "average": 1,
+      "level": "เก่งมาก"
+    }
+  }
+}

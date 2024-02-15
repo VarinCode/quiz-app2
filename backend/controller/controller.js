@@ -1,4 +1,4 @@
-import { writeFile } from "./file.js";
+import { writeFile, readFile } from "./file.js";
 
 const controller = {
   getData: (req, res, data) => {
@@ -7,8 +7,8 @@ const controller = {
     res.json({ result: JSON.stringify(data) });
   },
   getScore: (req, res, next, data) => {
-    const { answers, time } = req.body;
-  
+    const { answers, time, id } = req.body;
+
     const computeScore = () => {
       let score = 0;
       if (answers.length > 0) {
@@ -19,9 +19,10 @@ const controller = {
               answers[i].answerIs === data.dataset[i].correct.answer
             ) {
               score += 1;
-            } else {
-              continue;
             }
+            answers[i].isCorrect =
+              answers[i].correctChoice === answers[i].selectChoiceIs &&
+              answers[i].correctAnswer === answers[i].answerIs;
           } else {
             return null;
           }
@@ -52,14 +53,15 @@ const controller = {
     const result = computeScore();
 
     const dataFile = {
-      [`quiz`]: {
+      quiz: {
         date: new Date().toUTCString(),
-        time,        
+        id,
+        time,
         answers,
         result,
       },
     };
-    writeFile(dataFile);
+    writeFile(id, dataFile);
 
     if (result === null) {
       res.status(400);
@@ -68,6 +70,25 @@ const controller = {
       res.type("json");
       res.json({ result: result });
     }
+  },
+  getQuizData: (req, res) => {
+    readFile(req.body.id, (err, data) => {
+      if (!err) {
+        console.log("อ่านไฟล์ข้อมูลสำเร็จ");
+        if (data) {
+          // console.log(data);
+          res.type("json");
+          res.status(200);
+          res.json({ result: JSON.stringify(data) });
+        } else {
+        }
+      } else {
+        console.error("ไม่สามรถอ่านไฟล์ข้อมูลได้!");
+        res.status(400);
+        res.json({ result: null });
+        return;
+      }
+    });
   },
 };
 
