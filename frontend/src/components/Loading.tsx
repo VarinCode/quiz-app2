@@ -8,7 +8,6 @@ interface LoadingProps {
 }
 
 const Loading: FC<LoadingProps> = ({ text, loading }): ReactElement => {
-
   return (
     <div className="absolute right-2/4 top-32 translate-x-2/4">
       <div

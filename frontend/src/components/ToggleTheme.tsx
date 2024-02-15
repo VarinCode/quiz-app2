@@ -6,7 +6,7 @@ const ToggleTheme = ({ hidden }: { hidden?: boolean }): ReactElement => {
   const [changedTheme, setChangedTheme] = useState<boolean>(false);
   const [isLight, setIsLight] = useState<boolean>((localStorage.getItem("theme") as string) === "lightMode");
   const body: HTMLBodyElement = document.querySelector("body")!;
-
+  
   useEffect((): void => {
     isLight
       ? localStorage.setItem("theme", "darkMode")

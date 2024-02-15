@@ -1,8 +1,11 @@
+// import { StrictMode } from "react";
+
 import App from "./App.tsx";
 import Start from "./pages/Start.tsx";
 import ShowScore from "./pages/ShowScore.tsx";
 import Error from "./pages/Error.tsx";
-// import { StrictMode } from "react";
+import ViewQuiz from "./pages/ViewQuiz.tsx";
+
 import { createRoot, Root } from "react-dom/client";
 import { createBrowserRouter, RouterProvider, RemixRouter as Router } from "react-router-dom"
 
@@ -26,6 +29,14 @@ const router: Router = createBrowserRouter([
   {
     path: "/error",
     element: <Error/>
+  },
+  {
+    path: "/view",
+    element: <ViewQuiz/>
+  },
+  {
+    path: "*",
+    element: <Error text={"ไม่พบหน้าที่ท่านเรียกหา"} />
   }
 ])
 

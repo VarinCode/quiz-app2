@@ -20,40 +20,43 @@ export type Problem<T = string> = {
     choice: T;
   };
 };
-export type Problems = Problem[]
+export type Problems = Problem[];
 export type Answer = {
   number: number;
-  selectChoiceIs: string
+  selectChoiceIs: string;
   answerIs: string;
+  question: string;
+  correctChoice: string;
+  correctAnswer: string;
+  isCorrect?: boolean;
   date: string;
-}
-export type Answers = Answer[]
+};
+export type Answers = Answer[];
 
 export default interface Model {
   title: string;
   ref: string;
   date: string;
   numberOfExams: number;
-  dataset: Problems
-};
+  dataset: Problems;
+}
 
 export const initialModel: Model = {
   title: "",
   ref: "",
   date: "",
   numberOfExams: 0,
-  dataset: []
+  dataset: [],
 };
 
 export interface Time {
   hours: number;
   minutes: number;
   seconds: number;
-  text: string
+  text: string;
 }
 
-
-export const defaultTime: Time = { hours: 0, minutes: 0,seconds: 0, text: "" }
+export const defaultTime: Time = { hours: 0, minutes: 0, seconds: 0, text: "" };
 
 export interface DefaultValue {
   data: Model;
@@ -71,14 +74,14 @@ export interface DefaultValue {
 export const defaultVal: DefaultValue = {
   data: initialModel,
   answers: [],
-  setAnswers: function (){},
+  setAnswers: function () {},
   index: 0,
   completed: false,
-  setCompleted: function(){},
+  setCompleted: function () {},
   loading: false,
-  setLoading: function(){},
+  setLoading: function () {},
   time: defaultTime,
-  setTime: function(){}
+  setTime: function () {},
 };
 
 export const LoadingBlockProps: BlocksProps = {
@@ -93,3 +96,58 @@ export interface Result {
   average: number;
   level: string;
 }
+
+export interface PostData {
+  id: string;
+}
+
+export interface GetQuizData<
+  A extends Answers,
+  K extends Result,
+  T = string,
+  D = number
+> {
+  quiz: {
+    date: T;
+    id: T;
+    time: {
+      hours: D;
+      minutes: D;
+      seconds: D;
+      text: T;
+    };
+    answers: A;
+    result: K;
+  };
+}
+
+export const initialQuizData: GetQuizData<Answers, Result> = {
+  quiz: {
+    date: "",
+    id: "",
+    time: {
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      text: "",
+    },
+    answers: [],
+    result: {
+      score: 0,
+      average: 0,
+      level: "",
+    },
+  },
+};
+
+// Code by: @karollion/randomid-generator
+export const randomID = (idLength: number): string => {
+  let id: string = "";
+  const characters: string =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const charsAmount: number = characters.length;
+  for (let i: number = 0; i < idLength; i++) {
+    id += characters.charAt(Math.floor(Math.random() * charsAmount));
+  }
+  return id;
+};

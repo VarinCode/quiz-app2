@@ -28,9 +28,10 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 import { GrNext } from "react-icons/gr";
 import Swal from "sweetalert2";
 import withReactContent, { ReactSweetAlert } from "sweetalert2-react-content";
-export const MySwal: ReactSweetAlert = withReactContent(Swal);
 
+export const MySwal: ReactSweetAlert = withReactContent(Swal);
 export const DataContext: Context<DefaultValue> = createContext(defaultVal);
+export const controller: AbortController = new AbortController();
 
 const Quiz = (): ReactElement => {
   const [data, setData] = useState<Model>(initialModel);
@@ -41,11 +42,9 @@ const Quiz = (): ReactElement => {
   const [completed, setCompleted] = useState<boolean>(false);
   const [time, setTime] = useState<Time>(defaultTime);
 
+  const { VITE_BACKEND_PORT, VITE_HOST, VITE_API_ENDPOINT }: ImportMetaEnv = import.meta.env;
+  const apiUrl: string = `${VITE_HOST}${VITE_BACKEND_PORT}${VITE_API_ENDPOINT}`;
   const navigate: NavigateFunction = useNavigate();
-  const controller: AbortController = new AbortController();
-
-  const { VITE_BACKEND_PORT, VITE_API_URL, VITE_API_ENDPOINT }: ImportMetaEnv = import.meta.env;
-  const apiUrl: string = `${VITE_API_URL}${VITE_BACKEND_PORT}${VITE_API_ENDPOINT}`;
 
   const fetchData = async (): Promise<APIResponse<string>> => {
     setLoading(true);
@@ -59,7 +58,7 @@ const Quiz = (): ReactElement => {
       } else {
         throw new Error("เกิดข้อผิดพลาดขึ้นไม่สามารถเรียกข้อมูลได้!");
       }
-    } catch (e: any) {
+    } catch (e: unknown) {
       if (e instanceof Error) {
         MySwal.fire({
           title: <h1 className="font-mali">เกิดข้อผิดพลาดขึ้น</h1>,
@@ -69,7 +68,7 @@ const Quiz = (): ReactElement => {
       } else {
         console.error(e)
       }
-      return { result: e, status: false };
+      return { result: "", status: false };
     }
   };
 
@@ -188,7 +187,6 @@ const Quiz = (): ReactElement => {
                   });
                 } else {
                   setCompleted(true);
-                
                   setLoading(true);
                   setTimeout((): void => setLoading(false), 1500);
                 }

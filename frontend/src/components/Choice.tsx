@@ -30,6 +30,10 @@ const Choice: FC<ChoiceProps> = ({ id, value }): ReactElement => {
         number: context.data.dataset[index].number,
         answerIs: value,
         selectChoiceIs: id.toLowerCase(),
+        question: context.data.dataset[index].question,
+        correctChoice: context.data.dataset[index].correct.choice,
+        correctAnswer: context.data.dataset[index].correct.answer,
+        isCorrect: undefined,
         date: new Date().toUTCString(),
       };
       prevAnss[index] = newAnswer;

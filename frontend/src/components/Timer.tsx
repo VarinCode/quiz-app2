@@ -45,9 +45,9 @@ const Timer: FC<TimerProps> = ({ style }): ReactElement => {
 
   return (
     <div className={style}>
-      <MdOutlineAccessTimeFilled />
+      <MdOutlineAccessTimeFilled className="me-1"/>
       <p className="font-mali">{hours === 0 ? "" : `${hours}:`}</p>
-      <p className="font-mali mx-1">{minutes === 0 ? "" : `${minutes}:`}</p>
+      <p className="font-mali">{minutes === 0 ? "" : `${minutes}:`}</p>
       <p className="font-mali">{seconds === 0 ? "" : `${seconds}`}</p>
     </div>
   );

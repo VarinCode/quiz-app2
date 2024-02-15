@@ -6,7 +6,10 @@
 
 
 * {
-    font-family: 'Poor Story', system-ui;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Mali', cursive;
 }
 
 body {
