@@ -1,0 +1,69 @@
+{
+  "quiz": {
+    "date": "Thu, 15 Feb 2024 13:09:36 GMT",
+    "id": "KBZceLe9Dr",
+    "time": {
+      "hours": 0,
+      "minutes": 1,
+      "seconds": 28,
+      "text": "1 นาที 28 วินาที"
+    },
+    "answers": [
+      {
+        "number": 1,
+        "answerIs": "Hello World!",
+        "selectChoiceIs": "a",
+        "question": "console.log(\"Hello World!\") // คำสั่งนี้จะแสดงผลอะไร",
+        "correctChoice": "a",
+        "correctAnswer": "Hello World!",
+        "date": "Thu, 15 Feb 2024 13:08:34 GMT",
+        "isCorrect": true
+      },
+      {
+        "number": 2,
+        "answerIs": "a + b = 32",
+        "selectChoiceIs": "d",
+        "question": "let a = 3; let b = 2; console.log(\"a + b = \" + a + b);",
+        "correctChoice": "b",
+        "correctAnswer": "a + b = 5",
+        "date": "Thu, 15 Feb 2024 13:08:35 GMT",
+        "isCorrect": false
+      },
+      {
+        "number": 3,
+        "answerIs": "ไม่ได้เพราะเป็นค่าคงที่",
+        "selectChoiceIs": "d",
+        "question": "const myString = \"ข้อความ\"; // เราสามารถเปลี่ยนค่าใน myString ได้หรือไม่เพราะเหตุได",
+        "correctChoice": "d",
+        "correctAnswer": "ไม่ได้เพราะเป็นค่าคงที่",
+        "date": "Thu, 15 Feb 2024 13:08:38 GMT",
+        "isCorrect": true
+      },
+      {
+        "number": 4,
+        "answerIs": "NaN",
+        "selectChoiceIs": "c",
+        "question": "(12 - \"abcd\") / 3 // จะมีค่าออกมาเป็นค่าอะไร",
+        "correctChoice": "c",
+        "correctAnswer": "NaN",
+        "date": "Thu, 15 Feb 2024 13:09:33 GMT",
+        "isCorrect": true
+      },
+      {
+        "number": 5,
+        "answerIs": "2",
+        "selectChoiceIs": "d",
+        "question": "((true + true - false) * (true + true)) / 2 // มีค่าเป็นอะไร",
+        "correctChoice": "d",
+        "correctAnswer": "2",
+        "date": "Thu, 15 Feb 2024 13:09:34 GMT",
+        "isCorrect": true
+      }
+    ],
+    "result": {
+      "score": 4,
+      "average": 0.8,
+      "level": "ปานกลาง"
+    }
+  }
+}
